@@ -16,7 +16,7 @@ class LoginApp extends StatelessWidget {
         // J'ai fait ma propre palette
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
-          primary: Colors.deepPurple,
+          primary: Colors.blueGrey,
           secondary: Colors.amber,
         ),
         textTheme: const TextTheme(

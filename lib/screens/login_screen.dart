@@ -87,10 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(
+            vertical: 30.0,
+            horizontal: 16.0,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -103,14 +105,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(),
                     icon: Icon(Icons.mail),
                   ),
-                  //keyboardType: TextInputType.visiblePassword,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    // Validation de l'email
                     if (value == null || value.isEmpty) {
                       return 'Veuillez entrer votre email';
                     }
-                    // Regex simple pour valider l'email
                     if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
                       return 'Veuillez entrer un email valide';
                     }
@@ -139,12 +138,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 24.0),
-                // Bouton de Connexion
                 _isLoading
                     ? const CircularProgressIndicator()
-                    : ElevatedButton(
+                    : ElevatedButton.icon(
                   onPressed: _login,
-                  child: const Text('Se connecter'),
+                  icon: const Icon(Icons.login),
+                  label: const Text('Se connecter'),
+                ),
+                const SizedBox(height: 50.0),
+                // Ajout de l'image
+                Center(
+                  child: Image.asset(
+                    'lib/assets/images/esgi.png',
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ],
             ),
