@@ -4,7 +4,7 @@ class ProfileScreen extends StatelessWidget {
   final String firstName;
   final String lastName;
   final String role;
-  ProfileScreen({
+  const ProfileScreen({super.key,
     required this.email,
     required this.firstName,
     required this.lastName,
@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
     ],
         ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
             // Affichage des informations du profil

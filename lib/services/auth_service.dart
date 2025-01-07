@@ -29,7 +29,6 @@ class AuthService {
     }
 
     final userData = _users[email]!;
-    final userSalt = userData['salt'];
     final hashedPassword = hashPassword(password);
 
     if (userData['password'] != hashedPassword) {
