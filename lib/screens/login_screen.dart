@@ -6,7 +6,6 @@ import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.title});
-
   final String title;
 
   @override
@@ -14,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>(); // Clé pour le formulaire
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final AuthService _authService = AuthService();
@@ -22,9 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login() async {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+      setState(() => _isLoading = true);
 
       String email = _emailController.text;
       String password = _passwordController.text;
@@ -33,34 +30,28 @@ class _LoginScreenState extends State<LoginScreen> {
         final user = await _authService.login(email, password);
         if (!mounted) return;
 
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() => _isLoading = false);
 
         if (user != null) {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ProfileScreen(
-                email: email,
+                email: user['email'],
                 firstName: user['firstName'],
                 lastName: user['lastName'],
-                role: user['role'],
+                role: user['role'].toString(),
               ),
             ),
           );
         }
       } on AuthException catch (e) {
         // Gestion des erreurs personnalisées
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() => _isLoading = false);
         _showErrorDialog(e.message);
       } catch (e) {
         // Gestion d'erreurs générales
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() => _isLoading = false);
         _showErrorDialog('Une erreur inattendue est survenue.');
       }
     }
@@ -98,8 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                // Champ Email
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -127,9 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(),
                     icon: Icon(Icons.lock),
                   ),
-                  obscureText: true, // Masquer le texte
+                  obscureText: true,
                   validator: (value) {
-                    // Validation du mot de passe
                     if (value == null || value.isEmpty) {
                       return 'Veuillez entrer votre mot de passe';
                     }
@@ -148,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: const Text('Se connecter'),
                 ),
                 const SizedBox(height: 50.0),
-                // Ajout de l'image
+                // Image de bas de page
                 Center(
                   child: Image.asset(
                     'lib/assets/images/esgi.png',
